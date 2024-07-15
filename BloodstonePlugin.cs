@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
 using Bloodstone.API;
+using Bloodstone.Network;
 
 namespace Bloodstone
 {
@@ -35,12 +36,14 @@ namespace Bloodstone
             if (VWorld.IsServer)
             {
                 Hooks.Chat.Initialize();
+                MessageUtils.RegisterClientInitialisationType();
             }
 
             if (VWorld.IsClient)
             {
                 API.KeybindManager.Load();
                 // Hooks.Keybindings.Initialize();
+                Hooks.ClientChat.Initialize();
             }
 
             Hooks.OnInitialize.Initialize();
@@ -62,12 +65,14 @@ namespace Bloodstone
             if (VWorld.IsServer)
             {
                 Hooks.Chat.Uninitialize();
+                MessageUtils.UnregisterClientInitialisationType();
             }
 
             if (VWorld.IsClient)
             {
                 API.KeybindManager.Save();
                 Hooks.Keybindings.Uninitialize();
+                Hooks.ClientChat.Uninitialize();
             }
 
             Hooks.OnInitialize.Uninitialize();
