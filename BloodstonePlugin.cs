@@ -36,7 +36,6 @@ namespace Bloodstone
             if (VWorld.IsServer)
             {
                 Hooks.Chat.Initialize();
-                MessageUtils.RegisterClientInitialisationType();
             }
 
             if (VWorld.IsClient)
@@ -49,6 +48,7 @@ namespace Bloodstone
             Hooks.OnInitialize.Initialize();
             Hooks.GameFrame.Initialize();
             Network.SerializationHooks.Initialize();
+            MessageUtils.RegisterClientInitialisationType();
 
             Logger.LogInfo($"Bloodstone v{MyPluginInfo.PLUGIN_VERSION} loaded.");
 
@@ -65,7 +65,6 @@ namespace Bloodstone
             if (VWorld.IsServer)
             {
                 Hooks.Chat.Uninitialize();
-                MessageUtils.UnregisterClientInitialisationType();
             }
 
             if (VWorld.IsClient)
@@ -78,6 +77,7 @@ namespace Bloodstone
             Hooks.OnInitialize.Uninitialize();
             Hooks.GameFrame.Uninitialize();
             Network.SerializationHooks.Uninitialize();
+            MessageUtils.UnregisterClientInitialisationType();
 
             return true;
         }
